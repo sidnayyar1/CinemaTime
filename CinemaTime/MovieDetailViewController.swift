@@ -129,6 +129,7 @@ class MovieDetailViewController: UIViewController {
     TicketOffice.sharedInstance.rateMovie(movie.id, rating: rating)
     sendRatingToWatch(rating)
     self.rating.setTitle(rating, for: UIControlState())
+  
   }
 
 }
@@ -146,8 +147,11 @@ extension MovieDetailViewController {
     // 3
         let userInfo = ["movie_id":movie.id, "rating":rating]
         session.transferUserInfo(userInfo)
+        
       }
+      
     }
+    
   }
   
 }

@@ -123,6 +123,31 @@ class MovieDetailInterfaceController: WKInterfaceController {
 extension MovieDetailInterfaceController {
 
   func requestTicketForPurchasedMovie(_ movie: Movie) {
-    // TODO: Update to request movie ticket image from phone
+ 
+    if WCSession.isSupported() {
+      // 2
+      let session = WCSession.default
+      if session.isReachable {
+    // 3
+        let message = ["movie_id": movie.id]
+        session.sendMessage(message,
+          replyHandler: { (reply: [String : Any]) -> Void in
+            // 4
+            if let movieID = reply["movie_id"] as? String,
+              let movieTicket = reply["movie_ticket"] as? Data,
+              movieID == self.movie.id {
+    // 5
+                self.saveMovieTicketAndUpdateDisplay(movieTicket)
+              }
+          }, errorHandler: { (error: Error) in
+            print("ERROR: \(error.localizedDescription)")
+          }
+        )
+      } else {
+        // reachable
+        self.showReachabilityError()
+     
+      }
+    }
   }
 }
