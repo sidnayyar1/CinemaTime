@@ -143,11 +143,9 @@ extension MovieDetailInterfaceController {
             print("ERROR: \(error.localizedDescription)")
           }
         )
-      } else {
-        // reachable
+      } else { // reachable
         self.showReachabilityError()
-     
       }
     }
-  }
+}
 }

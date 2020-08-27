@@ -155,6 +155,19 @@ extension AppDelegate: WCSessionDelegate {
   
   //----------------------------------------------------------------------------------
   
+  func session(_ session: WCSession,
+    didReceiveMessage message: [String : Any],
+    replyHandler: @escaping ([String : Any]) -> Void) {
+    // 2
+    if let movieID = message["movie_id"] as? String {
+  // 3
+      if let movieTicket = QRCode(movieID) {
+        // 4
+        let reply: [String:Any] = ["movie_id":movieID,
+                     "movie_ticket":movieTicket.PNGData]
+        replyHandler(reply)
+      }
+  } }
   
   
 }
